@@ -1,3 +1,26 @@
+/*
+MIT License
+
+Copyright (c) 2026 Timo Heimonen <timo.heimonen@proton.me>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 'use strict';
 
 // ── Constants ──────────────────────────────────────────────
@@ -5,6 +28,7 @@ const INACTIVITY_MS = 5000;
 const STORAGE_LIMIT = 'writevoid_limit';
 const STORAGE_THEME = 'writevoid_theme';
 const STORAGE_MODE = 'writevoid_mode';
+const STORAGE_FONT = 'writevoid_font';
 const DEFAULT_LIMIT = 100;
 const THEME_LIGHT = 'light';
 const THEME_DARK = 'dark';
@@ -20,6 +44,7 @@ const downloadBtn = document.getElementById('download-btn-bottom');
 const themeBtn = document.getElementById('theme-btn');
 const modeBtn = document.getElementById('mode-btn');
 const limitInput = document.getElementById('limit-input');
+const fontSelect = document.getElementById('font-select');
 const menuBar = document.getElementById('menu-bar');
 const topHoverZone = document.getElementById('top-hover-zone');
 const siteMeta = document.getElementById('site-meta');
@@ -128,6 +153,24 @@ if (systemThemeMedia) {
     systemThemeMedia.addListener(handleSystemThemeChange);
   }
 }
+
+const FONT_STACKS = {
+  serif: "Georgia, 'Times New Roman', serif",
+  sans: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif",
+  mono: "'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace",
+};
+
+function applyFont(key) {
+  if (!FONT_STACKS[key]) return;
+  editor.style.fontFamily = FONT_STACKS[key];
+  fontSelect.value = key;
+  localStorage.setItem(STORAGE_FONT, key);
+}
+
+fontSelect.addEventListener('change', () => {
+  applyFont(fontSelect.value);
+  editor.focus();
+});
 
 // ── Mode toggle ────────────────────────────────────────────
 function applyMode(m) {
@@ -291,6 +334,7 @@ editor.addEventListener('paste', (e) => {
 function init() {
   applyTheme(theme, { persist: false });
   applyMode(mode);
+  applyFont(localStorage.getItem(STORAGE_FONT) || 'serif');
   limitInput.value = wordLimit;
   limitInput.placeholder = DEFAULT_LIMIT;
   updateWordCount();

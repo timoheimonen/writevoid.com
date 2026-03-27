@@ -159,6 +159,57 @@ html, body {
   box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
 }
 
+/* Font select - modern pill style */
+#font-select {
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1.5px solid transparent;
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+[data-theme="dark"] #font-select {
+  background-color: rgba(255, 255, 255, 0.05);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");
+}
+
+#font-select:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-color: var(--ui-border);
+}
+
+[data-theme="dark"] #font-select:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#font-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] #font-select:focus {
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+
+#font-select option {
+  background: var(--bg);
+  color: var(--text);
+}
+
 /* Mode toggle - modern pill button */
 #mode-btn {
   font-family: inherit;

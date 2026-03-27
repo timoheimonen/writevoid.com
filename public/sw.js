@@ -1,4 +1,5 @@
-const CACHE_NAME = 'writevoid-v1';
+const VERSION = '1.0.0';
+const CACHE_NAME = `writevoid-v${VERSION}`;
 const ASSETS = [
   './',
   './index.html',
