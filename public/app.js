@@ -5,7 +5,7 @@ const INACTIVITY_MS = 5000;
 const STORAGE_LIMIT = 'writevoid_limit';
 const STORAGE_THEME = 'writevoid_theme';
 const STORAGE_MODE = 'writevoid_mode';
-const DEFAULT_LIMIT = 1000;
+const DEFAULT_LIMIT = 100;
 const THEME_LIGHT = 'light';
 const THEME_DARK = 'dark';
 
@@ -292,6 +292,7 @@ function init() {
   applyTheme(theme, { persist: false });
   applyMode(mode);
   limitInput.value = wordLimit;
+  limitInput.placeholder = DEFAULT_LIMIT;
   updateWordCount();
   showSiteMeta();
   editor.focus();
