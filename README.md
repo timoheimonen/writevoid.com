@@ -1,5 +1,7 @@
 # writevoid.com
 
+[![Website Carbon](https://img.shields.io/badge/Website_Carbon-0.01g_CO2-brightgreen?style=flat-square)](https://www.websitecarbon.com/website/writevoid-com/)
+
 writevoid.com is a small web project designed to help you focus on writing, with a clean minimal interface and subtle features like fading timers.
 
 ## Privacy
