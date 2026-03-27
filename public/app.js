@@ -9,7 +9,7 @@ const DEFAULT_LIMIT   = 1000;
 // ── DOM refs ───────────────────────────────────────────────
 const editor      = document.getElementById('editor');
 const wordcountEl = document.getElementById('wordcount');
-const downloadBtn = document.getElementById('download-btn');
+const downloadBtn = document.getElementById('download-btn-bottom');
 const themeBtn    = document.getElementById('theme-btn');
 const limitInput  = document.getElementById('limit-input');
 const menuBar     = document.getElementById('menu-bar');
@@ -103,7 +103,7 @@ function updateWordCount() {
 }
 
 // ── Download ───────────────────────────────────────────────
-downloadBtn.addEventListener('click', () => {
+function downloadText() {
   const text = editor.innerText || '';
   if (!text.trim()) return;
 
@@ -117,7 +117,9 @@ downloadBtn.addEventListener('click', () => {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-});
+}
+
+downloadBtn.addEventListener('click', downloadText);
 
 // ── Fade mechanic ──────────────────────────────────────────
 function startFadeTimer() {

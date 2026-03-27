@@ -5,32 +5,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>writevoid</title>
+  <title>writevoid.com - stop writing, and the void takes it.</title>
 
-  <!-- Primary meta -->
   <meta name="description"
-    content="writevoid — a distraction-free writing page. Write or lose it: stop typing and your words fade away. Open source, no tracking, works fully offline." />
+    content="The void is hungry. Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts. Open source, no tracking, works fully offline." />
   <meta name="author" content="writevoid contributors" />
-  <meta name="keywords" content="writing, distraction-free, writer, open source, offline, pwa" />
+  <meta name="keywords"
+    content="writing, distraction-free, ephemeral writing, focus, minimalist, open source, offline, pwa" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="writevoid" />
+  <meta property="og:title" content="writevoid.com - stop writing, and the void takes it." />
   <meta property="og:description"
-    content="A distraction-free void for your words. Write or lose it. Open source and fully offline." />
+    content="A minimalist writing space where your words vanish if you stop. Keep the flow or lose it all to the void. Open source and private." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://writevoid.com" />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="writevoid" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="writevoid.com - stop writing, and the void takes it." />
   <meta name="twitter:description"
-    content="Write or lose it. Distraction-free, open source, no tracking, works offline." />
+    content="The ultimate distraction-free writing experience. Stop typing, and the void takes your words. Open source, offline, and zero tracking." />
 
-  <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#000000" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="writevoid" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
@@ -55,15 +53,17 @@
       <div class="menu-item">
         <button id="theme-btn">dark</button>
       </div>
-      <button id="download-btn">download</button>
     </div>
   </header>
 
   <!-- Writing surface - full screen -->
   <div id="editor" contenteditable="true" spellcheck="true" data-placeholder="start writing..."></div>
 
-  <!-- Word count - subtle bottom right -->
-  <div id="wordcount">0</div>
+  <!-- Word count and download container - bottom right -->
+  <div id="wordcount-container">
+    <div id="wordcount">0</div>
+    <button id="download-btn-bottom" class="download-btn">download</button>
+  </div>
 
   <script src="app.js"></script>
 </body>
