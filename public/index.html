@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>writevoid</title>
+
+  <!-- Primary meta -->
+  <meta name="description"
+    content="writevoid — a distraction-free writing page. Write or lose it: stop typing and your words fade away. Open source, no tracking, works fully offline." />
+  <meta name="author" content="writevoid contributors" />
+  <meta name="keywords" content="writing, distraction-free, writer, open source, offline, pwa" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="writevoid" />
+  <meta property="og:description"
+    content="A distraction-free void for your words. Write or lose it. Open source and fully offline." />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="writevoid" />
+  <meta name="twitter:description"
+    content="Write or lose it. Distraction-free, open source, no tracking, works offline." />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="writevoid" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Hover zone at top -->
+  <div id="top-hover-zone"></div>
+
+  <!-- Menu bar - appears on hover -->
+  <header id="menu-bar">
+    <div class="menu-left">
+      <span id="logo">writevoid</span>
+    </div>
+    <div class="menu-right">
+      <div class="menu-item">
+        <label for="limit-input">word limit for download</label>
+        <input id="limit-input" type="number" min="1" inputmode="numeric" placeholder="1000" />
+      </div>
+      <div class="menu-item">
+        <button id="theme-btn">dark</button>
+      </div>
+      <button id="download-btn">download</button>
+    </div>
+  </header>
+
+  <!-- Writing surface - full screen -->
+  <div id="editor" contenteditable="true" spellcheck="true" data-placeholder="start writing..."></div>
+
+  <!-- Word count - subtle bottom right -->
+  <div id="wordcount">0</div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
