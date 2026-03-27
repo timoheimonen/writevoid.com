@@ -6,6 +6,8 @@ const STORAGE_LIMIT = 'writevoid_limit';
 const STORAGE_THEME = 'writevoid_theme';
 const STORAGE_MODE = 'writevoid_mode';
 const DEFAULT_LIMIT = 1000;
+const THEME_LIGHT = 'light';
+const THEME_DARK = 'dark';
 
 // Mode fade durations (in seconds)
 const FADE_DURATION_FOCUS = 10;
@@ -22,9 +24,30 @@ const menuBar = document.getElementById('menu-bar');
 const topHoverZone = document.getElementById('top-hover-zone');
 const siteMeta = document.getElementById('site-meta');
 
+const systemThemeMedia = window.matchMedia
+  ? window.matchMedia('(prefers-color-scheme: dark)')
+  : null;
+
+function isValidTheme(value) {
+  return value === THEME_LIGHT || value === THEME_DARK;
+}
+
+function getPreferredTheme() {
+  return systemThemeMedia?.matches ? THEME_DARK : THEME_LIGHT;
+}
+
+function hasStoredThemePreference() {
+  return isValidTheme(localStorage.getItem(STORAGE_THEME));
+}
+
+function getInitialTheme() {
+  const storedTheme = localStorage.getItem(STORAGE_THEME);
+  return isValidTheme(storedTheme) ? storedTheme : getPreferredTheme();
+}
+
 // ── State ──────────────────────────────────────────────────
 let wordLimit = parseInt(localStorage.getItem(STORAGE_LIMIT), 10) || DEFAULT_LIMIT;
-let theme = localStorage.getItem(STORAGE_THEME) || 'light';
+let theme = getInitialTheme();
 let mode = localStorage.getItem(STORAGE_MODE) || 'focus';
 let inactivityTimer = null;
 let isFading = false;
@@ -80,16 +103,31 @@ document.addEventListener('mousemove', () => {
 });
 
 // ── Theme ──────────────────────────────────────────────────
-function applyTheme(t) {
+function applyTheme(t, { persist = true } = {}) {
   theme = t;
-  document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : '');
+  document.documentElement.setAttribute('data-theme', t === THEME_DARK ? THEME_DARK : '');
   themeBtn.textContent = t;
-  localStorage.setItem(STORAGE_THEME, t);
+  if (persist) {
+    localStorage.setItem(STORAGE_THEME, t);
+  }
 }
 
 themeBtn.addEventListener('click', () => {
-  applyTheme(theme === 'dark' ? 'light' : 'dark');
+  applyTheme(theme === THEME_DARK ? THEME_LIGHT : THEME_DARK);
 });
+
+if (systemThemeMedia) {
+  const handleSystemThemeChange = (e) => {
+    if (hasStoredThemePreference()) return;
+    applyTheme(e.matches ? THEME_DARK : THEME_LIGHT, { persist: false });
+  };
+
+  if (typeof systemThemeMedia.addEventListener === 'function') {
+    systemThemeMedia.addEventListener('change', handleSystemThemeChange);
+  } else if (typeof systemThemeMedia.addListener === 'function') {
+    systemThemeMedia.addListener(handleSystemThemeChange);
+  }
+}
 
 // ── Mode toggle ────────────────────────────────────────────
 function applyMode(m) {
@@ -251,7 +289,7 @@ editor.addEventListener('paste', (e) => {
 
 // ── Init ───────────────────────────────────────────────────
 function init() {
-  applyTheme(theme);
+  applyTheme(theme, { persist: false });
   applyMode(mode);
   limitInput.value = wordLimit;
   updateWordCount();
