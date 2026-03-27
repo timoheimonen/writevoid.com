@@ -245,7 +245,11 @@ function downloadText() {
   URL.revokeObjectURL(url);
 }
 
-downloadBtn.addEventListener('click', downloadText);
+downloadBtn.addEventListener('click', () => {
+  cancelFade();
+  clearTimeout(inactivityTimer);
+  downloadText();
+});
 
 // ── Fade mechanic ──────────────────────────────────────────
 function startFadeTimer() {
