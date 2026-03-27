@@ -58,7 +58,7 @@ menuBar.addEventListener('mouseleave', hideMenuDelayed);
 function applyTheme(t) {
   theme = t;
   document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : '');
-  themeBtn.textContent = t === 'dark' ? 'light' : 'dark';
+  themeBtn.textContent = t;
   localStorage.setItem(STORAGE_THEME, t);
 }
 
