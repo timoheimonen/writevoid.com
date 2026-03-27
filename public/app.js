@@ -2,25 +2,32 @@
 
 // ── Constants ──────────────────────────────────────────────
 const INACTIVITY_MS = 5000;
-const STORAGE_LIMIT   = 'writevoid_limit';
-const STORAGE_THEME   = 'writevoid_theme';
-const DEFAULT_LIMIT   = 1000;
+const STORAGE_LIMIT = 'writevoid_limit';
+const STORAGE_THEME = 'writevoid_theme';
+const STORAGE_MODE = 'writevoid_mode';
+const DEFAULT_LIMIT = 1000;
+
+// Mode fade durations (in seconds)
+const FADE_DURATION_FOCUS = 10;
+const FADE_DURATION_HARDCORE = 5;
 
 // ── DOM refs ───────────────────────────────────────────────
-const editor      = document.getElementById('editor');
+const editor = document.getElementById('editor');
 const wordcountEl = document.getElementById('wordcount');
 const downloadBtn = document.getElementById('download-btn-bottom');
-const themeBtn    = document.getElementById('theme-btn');
-const limitInput  = document.getElementById('limit-input');
-const menuBar     = document.getElementById('menu-bar');
+const themeBtn = document.getElementById('theme-btn');
+const modeBtn = document.getElementById('mode-btn');
+const limitInput = document.getElementById('limit-input');
+const menuBar = document.getElementById('menu-bar');
 const topHoverZone = document.getElementById('top-hover-zone');
 
 // ── State ──────────────────────────────────────────────────
-let wordLimit       = parseInt(localStorage.getItem(STORAGE_LIMIT), 10) || DEFAULT_LIMIT;
-let theme           = localStorage.getItem(STORAGE_THEME) || 'light';
+let wordLimit = parseInt(localStorage.getItem(STORAGE_LIMIT), 10) || DEFAULT_LIMIT;
+let theme = localStorage.getItem(STORAGE_THEME) || 'light';
+let mode = localStorage.getItem(STORAGE_MODE) || 'focus';
 let inactivityTimer = null;
-let isFading        = false;
-let menuHideTimer   = null;
+let isFading = false;
+let menuHideTimer = null;
 
 // ── Menu hover behavior ───────────────────────────────────
 function showMenu() {
@@ -57,6 +64,19 @@ function applyTheme(t) {
 
 themeBtn.addEventListener('click', () => {
   applyTheme(theme === 'dark' ? 'light' : 'dark');
+});
+
+// ── Mode toggle ────────────────────────────────────────────
+function applyMode(m) {
+  mode = m;
+  const fadeDuration = m === 'hardcore' ? FADE_DURATION_HARDCORE : FADE_DURATION_FOCUS;
+  document.documentElement.style.setProperty('--fade-duration', `${fadeDuration}s`);
+  modeBtn.textContent = m;
+  localStorage.setItem(STORAGE_MODE, m);
+}
+
+modeBtn.addEventListener('click', () => {
+  applyMode(mode === 'hardcore' ? 'focus' : 'hardcore');
 });
 
 // ── Word limit input ─────────────────────────────────────
@@ -150,6 +170,14 @@ editor.addEventListener('transitionend', (e) => {
     editor.classList.remove('fading');
     updateWordCount();
     editor.focus();
+    
+    // Move cursor to the start
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.setStart(editor, 0);
+    range.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(range);
   }
 });
 
@@ -171,20 +199,20 @@ function scrollToCursor() {
   }
 }
 
-function handleInput() {
+function resetActivityTimer() {
   cancelFade();
-  updateWordCount();
   startFadeTimer();
-  scrollToCursor();
   hideMenu();
 }
 
+function handleInput() {
+  resetActivityTimer();
+  updateWordCount();
+  scrollToCursor();
+}
+
 editor.addEventListener('input', handleInput);
-editor.addEventListener('keydown', () => {
-  cancelFade();
-  startFadeTimer();
-  hideMenu();
-});
+editor.addEventListener('keydown', resetActivityTimer);
 
 // Handle paste to strip formatting
 editor.addEventListener('paste', (e) => {
@@ -197,6 +225,7 @@ editor.addEventListener('paste', (e) => {
 // ── Init ───────────────────────────────────────────────────
 function init() {
   applyTheme(theme);
+  applyMode(mode);
   limitInput.value = wordLimit;
   updateWordCount();
   editor.focus();

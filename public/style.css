@@ -128,7 +128,7 @@ html, body {
   border: 1.5px solid transparent;
   border-radius: 20px;
   padding: 6px 12px;
-  width: 8ch;
+  width: 10ch;
   text-align: center;
   caret-color: var(--accent);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -159,18 +159,40 @@ html, body {
   box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
 }
 
-#limit-input::placeholder {
-  color: var(--ui-muted);
+/* Mode toggle - modern pill button */
+#mode-btn {
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1.5px solid transparent;
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-#limit-input::-webkit-outer-spin-button,
-#limit-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+[data-theme="dark"] #mode-btn {
+  background: rgba(255, 255, 255, 0.05);
 }
 
-#limit-input[type=number] {
-  -moz-appearance: textfield;
+#mode-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: var(--ui-border);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] #mode-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#mode-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 /* Theme toggle - modern pill button */
@@ -262,9 +284,6 @@ html, body {
 /* ── Word count - modern badge style ── */
 
 #wordcount {
-  position: fixed;
-  bottom: 28px;
-  right: 32px;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -287,10 +306,9 @@ html, body {
 
 #wordcount.active {
   opacity: 1;
-  color: var(--text);
+  color: #ffffff;
   background: var(--accent);
   border-color: var(--accent);
-  color: #ffffff;
   transform: scale(1);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
@@ -310,12 +328,6 @@ html, body {
   align-items: center;
   gap: 12px;
   z-index: 10;
-}
-
-#wordcount {
-  position: static;
-  bottom: auto;
-  right: auto;
 }
 
 /* Download button - bottom (stacked under word count) */
@@ -368,7 +380,7 @@ html, body {
   
   #limit-input {
     padding: 5px 10px;
-    width: 4.5ch;
+    width: 8ch;
   }
   
   #theme-btn {
@@ -391,9 +403,6 @@ html, body {
   }
   
   #wordcount {
-    position: static;
-    bottom: auto;
-    right: auto;
     padding: 6px 12px;
     font-size: 0.7rem;
   }
@@ -418,7 +427,7 @@ html, body {
   }
   
   #limit-input {
-    width: 5ch;
+    width: 8ch;
   }
   
   #editor {
@@ -428,11 +437,5 @@ html, body {
   #wordcount-container {
     bottom: 16px;
     right: 16px;
-  }
-  
-  #wordcount {
-    position: static;
-    bottom: auto;
-    right: auto;
   }
 }
