@@ -73,7 +73,7 @@ function getInitialTheme() {
 // ── State ──────────────────────────────────────────────────
 let wordLimit = parseInt(localStorage.getItem(STORAGE_LIMIT), 10) || DEFAULT_LIMIT;
 let theme = getInitialTheme();
-let mode = localStorage.getItem(STORAGE_MODE) || 'focus';
+let mode = localStorage.getItem(STORAGE_MODE) || 'hardcore';
 let inactivityTimer = null;
 let isFading = false;
 let menuHideTimer = null;
