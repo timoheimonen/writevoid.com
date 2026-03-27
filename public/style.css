@@ -248,7 +248,7 @@ html, body {
   color: var(--text);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(1.15rem, 2.4vw, 1.6rem);
-  line-height: 2;
+  line-height: 1;
   caret-color: var(--text);
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -257,6 +257,12 @@ html, body {
   scroll-padding-bottom: 12vh;
   scrollbar-width: none;
   transition: opacity var(--fade-duration) ease, color 0.4s ease;
+}
+
+#editor div,
+#editor p {
+  margin: 0;
+  line-height: 1;
 }
 
 #editor::-webkit-scrollbar {
@@ -437,7 +443,7 @@ html, body {
   #editor {
     padding: 10vh 10vw 10vh 10vw;
     font-size: clamp(1.05rem, 4.5vw, 1.35rem);
-    line-height: 1.9;
+    line-height: 1;
   }
   
   #wordcount-container {
