@@ -1,7 +1,7 @@
 {
   "name": "writevoid",
   "short_name": "writevoid",
-  "description": "Write or lose it. A distraction-free void for your words.",
+  "description": "Stop writing, and the void takes it.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "any",
