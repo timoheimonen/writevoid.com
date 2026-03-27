@@ -20,6 +20,7 @@ const modeBtn = document.getElementById('mode-btn');
 const limitInput = document.getElementById('limit-input');
 const menuBar = document.getElementById('menu-bar');
 const topHoverZone = document.getElementById('top-hover-zone');
+const siteMeta = document.getElementById('site-meta');
 
 // ── State ──────────────────────────────────────────────────
 let wordLimit = parseInt(localStorage.getItem(STORAGE_LIMIT), 10) || DEFAULT_LIMIT;
@@ -50,9 +51,33 @@ function keepMenuOpen() {
   clearTimeout(menuHideTimer);
 }
 
+function showSiteMeta() {
+  siteMeta.classList.remove('hidden');
+}
+
+function hideSiteMeta() {
+  const text = editor.innerText || '';
+  if (text.trim() === '') return;
+  siteMeta.classList.add('hidden');
+}
+
+function syncSiteMeta() {
+  const text = editor.innerText || '';
+  if (text.trim() === '') {
+    showSiteMeta();
+  } else {
+    hideSiteMeta();
+  }
+}
+
 topHoverZone.addEventListener('mouseenter', showMenu);
 menuBar.addEventListener('mouseenter', keepMenuOpen);
 menuBar.addEventListener('mouseleave', hideMenuDelayed);
+document.addEventListener('mousemove', () => {
+  if ((editor.innerText || '').trim() === '') {
+    showSiteMeta();
+  }
+});
 
 // ── Theme ──────────────────────────────────────────────────
 function applyTheme(t) {
@@ -169,6 +194,7 @@ editor.addEventListener('transitionend', (e) => {
     isFading = false;
     editor.classList.remove('fading');
     updateWordCount();
+    showSiteMeta();
     editor.focus();
     
     // Move cursor to the start
@@ -209,6 +235,7 @@ function handleInput() {
   resetActivityTimer();
   updateWordCount();
   scrollToCursor();
+  syncSiteMeta();
 }
 
 editor.addEventListener('input', handleInput);
@@ -228,6 +255,7 @@ function init() {
   applyMode(mode);
   limitInput.value = wordLimit;
   updateWordCount();
+  showSiteMeta();
   editor.focus();
 
   // Register service worker

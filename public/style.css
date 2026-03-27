@@ -330,6 +330,49 @@ html, body {
   z-index: 10;
 }
 
+#site-meta {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(calc(100vw - 64px), 780px);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: var(--ui-muted);
+  opacity: 0.55;
+  z-index: 10;
+  pointer-events: auto;
+  user-select: none;
+  transform: translateX(-50%);
+  justify-content: center;
+  text-align: center;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#site-meta.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  pointer-events: none;
+}
+
+#site-meta a {
+  color: inherit;
+  text-decoration: none;
+  text-transform: lowercase;
+  font-weight: 600;
+}
+
+#site-meta a:hover {
+  color: var(--text);
+  opacity: 1;
+}
+
+#site-meta span {
+  white-space: nowrap;
+}
+
 /* Download button - bottom (stacked under word count) */
 #download-btn-bottom {
   font-family: inherit;
@@ -401,6 +444,15 @@ html, body {
     bottom: 20px;
     right: 20px;
   }
+
+  #site-meta {
+    left: 50%;
+    bottom: 20px;
+    max-width: min(calc(100vw - 40px), 720px);
+    font-size: 0.62rem;
+    gap: 10px;
+    transform: translateX(-50%);
+  }
   
   #wordcount {
     padding: 6px 12px;
@@ -437,5 +489,20 @@ html, body {
   #wordcount-container {
     bottom: 16px;
     right: 16px;
+  }
+
+  #site-meta {
+    left: 50%;
+    bottom: 16px;
+    max-width: calc(100vw - 32px);
+    font-size: 0.56rem;
+    gap: 8px;
+    flex-wrap: wrap;
+    line-height: 1.2;
+    transform: translateX(-50%);
+  }
+
+  #site-meta span {
+    white-space: normal;
   }
 }
