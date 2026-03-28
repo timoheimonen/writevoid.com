@@ -48,6 +48,10 @@ const fontSelect = document.getElementById('font-select');
 const menuBar = document.getElementById('menu-bar');
 const topHoverZone = document.getElementById('top-hover-zone');
 const siteMeta = document.getElementById('site-meta');
+const infoBtn = document.getElementById('info-btn');
+const infoOverlay = document.getElementById('info-overlay');
+const infoCloseBtn = document.getElementById('info-close-btn');
+const infoWindow = document.getElementById('infoWindow');
 
 const systemThemeMedia = window.matchMedia
   ? window.matchMedia('(prefers-color-scheme: dark)')
@@ -77,6 +81,7 @@ let mode = localStorage.getItem(STORAGE_MODE) || 'hardcore';
 let inactivityTimer = null;
 let isFading = false;
 let menuHideTimer = null;
+let isInfoWindowOpen = false;
 
 // ── Menu hover behavior ───────────────────────────────────
 function showMenu() {
@@ -253,6 +258,7 @@ downloadBtn.addEventListener('click', () => {
 
 // ── Fade mechanic ──────────────────────────────────────────
 function startFadeTimer() {
+  if (isInfoWindowOpen) return;
   clearTimeout(inactivityTimer);
   inactivityTimer = setTimeout(beginFade, INACTIVITY_MS);
 }
@@ -311,6 +317,7 @@ function scrollToCursor() {
 }
 
 function resetActivityTimer() {
+  if (isInfoWindowOpen) return;
   cancelFade();
   startFadeTimer();
   hideMenu();
@@ -332,6 +339,66 @@ editor.addEventListener('paste', (e) => {
   const text = (e.clipboardData || window.clipboardData).getData('text/plain');
   document.execCommand('insertText', false, text);
   handleInput();
+});
+
+// ── Info overlay ───────────────────────────────────────────
+let mouseDownTarget = null;
+let isMouseDownInsideWindow = false;
+
+function openInfoWindow() {
+  isInfoWindowOpen = true;
+  infoOverlay.classList.add('open');
+  cancelFade();
+  clearTimeout(inactivityTimer);
+}
+
+function closeInfoWindow() {
+  isInfoWindowOpen = false;
+  infoOverlay.classList.remove('open');
+  resetActivityTimer();
+}
+
+infoBtn.addEventListener('click', openInfoWindow);
+infoCloseBtn.addEventListener('click', closeInfoWindow);
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && infoOverlay.classList.contains('open')) {
+    closeInfoWindow();
+  }
+});
+
+// Safeguarded click-outside close logic
+infoWindow.addEventListener('mousedown', (e) => {
+  isMouseDownInsideWindow = true;
+  e.stopPropagation();
+});
+
+infoWindow.addEventListener('mouseup', (e) => {
+  isMouseDownInsideWindow = false;
+  e.stopPropagation();
+});
+
+infoOverlay.addEventListener('mousedown', (e) => {
+  if (e.target === infoOverlay) {
+    mouseDownTarget = 'overlay';
+  } else if (e.target.closest('#infoWindow')) {
+    mouseDownTarget = 'window';
+  }
+});
+
+infoOverlay.addEventListener('mouseup', (e) => {
+  // Only close if:
+  // 1. Click started on overlay (not window)
+  // 2. Click ended on overlay (not window)
+  // 3. Not currently dragging from inside window
+  if (mouseDownTarget === 'overlay' && 
+      e.target === infoOverlay && 
+      !isMouseDownInsideWindow) {
+    closeInfoWindow();
+  }
+  mouseDownTarget = null;
+  isMouseDownInsideWindow = false;
 });
 
 // ── Init ───────────────────────────────────────────────────
