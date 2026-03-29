@@ -1,4 +1,4 @@
-const VERSION = '1.0.5';
+const VERSION = '1.0.6';
 const CACHE_NAME = `writevoid-v${VERSION}`;
 const ASSETS = [
   './',
@@ -7,7 +7,8 @@ const ASSETS = [
   './app.js',
   './manifest.json',
   './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/icon-512.png',
+  './icons/og-image.png'
 ];
 
 self.addEventListener('install', (event) => {
