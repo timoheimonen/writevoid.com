@@ -32,10 +32,12 @@ SOFTWARE.
 
   <meta name="description"
     content="Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts. Open source, no tracking, works fully offline." />
-  <meta name="version" content="1.0.6" />
+  <meta name="version" content="1.0.7" />
   <meta name="author" content="writevoid contributors" />
   <meta name="keywords"
     content="writing, distraction-free, ephemeral writing, focus, minimalist, open source, offline, pwa" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://writevoid.com/" />
 
   <meta property="og:title" content="writevoid.com - stop writing, and the void takes it." />
   <meta property="og:description"
@@ -61,6 +63,35 @@ SOFTWARE.
   <link rel="icon" href="favicon.ico" sizes="any" />
 
   <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "writevoid",
+      "alternateName": "writevoid.com",
+      "url": "https://writevoid.com/",
+      "description": "Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts.",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web browser",
+      "browserRequirements": "JavaScript required",
+      "image": "https://writevoid.com/icons/og-image.png",
+      "author": {
+        "@type": "Organization",
+        "name": "writevoid contributors",
+        "url": "https://github.com/timoheimonen/writevoid.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "writevoid contributors",
+        "url": "https://github.com/timoheimonen/writevoid.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -69,7 +100,7 @@ SOFTWARE.
 
   <header id="menu-bar">
     <div class="menu-left">
-      <span id="logo">writevoid.com - stop writing, and the void takes it.</span>
+      <h1 id="logo">writevoid.com - stop writing, and the void takes it.</h1>
     </div>
     <div class="menu-right">
       <div class="menu-item">
