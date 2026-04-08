@@ -1,0 +1,251 @@
+<!--
+MIT License
+
+Copyright (c) 2026 Timo Heimonen <timo.heimonen@proton.me>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About writevoid - minimalist distraction-free writing app</title>
+  <meta name="description"
+    content="About writevoid: a minimalist distraction-free writing app where text fades if you stop typing. Works offline, open source, no analytics.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://writevoid.com/about.html">
+  <meta property="og:title" content="About writevoid - minimalist distraction-free writing app">
+  <meta property="og:description"
+    content="About writevoid: a minimalist distraction-free writing app where text fades if you stop typing. Works offline, open source, no analytics.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://writevoid.com/about.html">
+  <meta property="og:image" content="https://writevoid.com/icons/og-image.png">
+  <meta property="og:image:alt" content="writevoid editor interface with minimalist writing canvas">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About writevoid - minimalist distraction-free writing app">
+  <meta name="twitter:description"
+    content="About writevoid: a minimalist distraction-free writing app where text fades if you stop typing. Works offline, open source, no analytics.">
+  <meta name="twitter:image" content="https://writevoid.com/icons/og-image.png">
+  <meta name="twitter:image:alt" content="writevoid editor interface with minimalist writing canvas">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "name": "About writevoid",
+          "url": "https://writevoid.com/about.html",
+          "description": "About writevoid: a minimalist distraction-free writing app where text fades if you stop typing.",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "writevoid",
+            "url": "https://writevoid.com/"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is writevoid?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "writevoid is a browser-based minimalist writing app where text starts to fade and then disappears if you stop typing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is writevoid a distraction-free writing app?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. writevoid removes typical editor clutter and keeps the focus on continuous writing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use writevoid offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. writevoid is installable as a progressive web app and works offline after your browser caches the app files."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+  <style>
+    :root {
+      --bg: #000000;
+      --fg: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.7);
+      --link: rgba(255, 255, 255, 0.92);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 18px 48px;
+    }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 24px;
+      letter-spacing: -0.2px;
+      margin: 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section {
+      padding: 24px 0;
+      margin: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 14px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    ul {
+      margin: 12px 0 12px 20px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: rgba(128, 128, 128, 0.55);
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.95em;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .home {
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>About writevoid</h1>
+      <div class="meta">Updated: 2026-04-08</div>
+    </header>
+
+    <div class="home">
+      <a href="https://writevoid.com/">← Back to writevoid.com</a>
+    </div>
+
+    <section>
+      <p><strong>writevoid</strong> is a minimalist, distraction-free writing app where your words are temporary by
+        design. If you stop typing, text fades and is permanently removed.</p>
+      <p>The goal is simple: maintain flow by removing the pressure to polish while drafting.</p>
+    </section>
+
+    <section>
+      <h2>How writevoid works</h2>
+      <ul>
+        <li>You type in a clean browser editor with no account required.</li>
+        <li>If you pause typing, your text starts to fade.</li>
+        <li>After fading completes, text is deleted with no recovery option.</li>
+        <li>When you pass a word target, you can download your draft as a plain <code>.txt</code> file.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Why writers use it</h2>
+      <ul>
+        <li>Works as a focused writing sprint tool.</li>
+        <li>Helps reduce over-editing during first drafts.</li>
+        <li>Encourages momentum with built-in urgency.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Privacy and offline support</h2>
+      <p>writevoid does not include ads or third-party analytics. The app supports offline use through PWA caching and
+        stores only local preferences in your browser.</p>
+      <p>Read the full <a href="/privacy.html">Privacy Policy</a> and <a href="/tos.html">Terms of Service</a>.</p>
+    </section>
+
+    <section>
+      <h2>Open source</h2>
+      <p>The complete source is available on GitHub for review and contribution:</p>
+      <p><a href="https://github.com/timoheimonen/writevoid.com" target="_blank"
+          rel="noopener">github.com/timoheimonen/writevoid.com</a></p>
+    </section>
+
+    <section>
+      <h2>FAQ</h2>
+      <p><strong>Is writevoid free?</strong><br>Yes, it is free to use.</p>
+      <p><strong>Do I need to create an account?</strong><br>No. There is no login or profile system.</p>
+      <p><strong>Can I use writevoid on mobile?</strong><br>Yes. It works in modern mobile browsers and can be installed as a PWA.</p>
+    </section>
+  </main>
+</body>
+
+</html>

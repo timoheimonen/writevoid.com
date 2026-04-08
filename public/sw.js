@@ -1,8 +1,11 @@
-const VERSION = '1.0.7';
+const VERSION = '1.0.8';
 const CACHE_NAME = `writevoid-v${VERSION}`;
 const ASSETS = [
   './',
   './index.html',
+  './about.html',
+  './privacy.html',
+  './tos.html',
   './style.css',
   './app.js',
   './manifest.json',
