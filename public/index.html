@@ -32,7 +32,7 @@ SOFTWARE.
 
   <meta name="description"
     content="Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts. Open source, no tracking, works fully offline." />
-  <meta name="version" content="1.0.7" />
+  <meta name="version" content="1.0.8" />
   <meta name="author" content="writevoid contributors" />
   <meta name="keywords"
     content="writing, distraction-free, ephemeral writing, focus, minimalist, open source, offline, pwa" />
@@ -43,14 +43,19 @@ SOFTWARE.
   <meta property="og:description"
     content="Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts. Open source, no tracking, works fully offline." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://writevoid.com" />
+  <meta property="og:url" content="https://writevoid.com/" />
+  <meta property="og:site_name" content="writevoid" />
   <meta property="og:image" content="https://writevoid.com/icons/og-image.png" />
+  <meta property="og:image:alt" content="writevoid editor interface with minimalist writing canvas" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="writevoid.com - stop writing, and the void takes it." />
   <meta name="twitter:description"
     content="Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts. Open source, no tracking, works fully offline." />
   <meta name="twitter:image" content="https://writevoid.com/icons/og-image.png" />
+  <meta name="twitter:image:alt" content="writevoid editor interface with minimalist writing canvas" />
 
 
   <link rel="manifest" href="manifest.json" />
@@ -66,32 +71,141 @@ SOFTWARE.
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "writevoid",
-      "alternateName": "writevoid.com",
-      "url": "https://writevoid.com/",
-      "description": "Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts.",
-      "applicationCategory": "ProductivityApplication",
-      "operatingSystem": "Web browser",
-      "browserRequirements": "JavaScript required",
-      "image": "https://writevoid.com/icons/og-image.png",
-      "author": {
-        "@type": "Organization",
-        "name": "writevoid contributors",
-        "url": "https://github.com/timoheimonen/writevoid.com"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "writevoid contributors",
-        "url": "https://github.com/timoheimonen/writevoid.com"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://writevoid.com/#website",
+          "url": "https://writevoid.com/",
+          "name": "writevoid",
+          "description": "Minimalist distraction-free writing app where text fades if you stop typing.",
+          "inLanguage": "en"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://writevoid.com/#organization",
+          "name": "writevoid contributors",
+          "url": "https://writevoid.com/",
+          "sameAs": [
+            "https://github.com/timoheimonen/writevoid.com"
+          ]
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://writevoid.com/#webapp",
+          "name": "writevoid",
+          "alternateName": "writevoid.com",
+          "url": "https://writevoid.com/",
+          "description": "Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts.",
+          "applicationCategory": "ProductivityApplication",
+          "operatingSystem": "Web browser",
+          "browserRequirements": "JavaScript required",
+          "image": "https://writevoid.com/icons/og-image.png",
+          "author": {
+            "@id": "https://writevoid.com/#organization"
+          },
+          "publisher": {
+            "@id": "https://writevoid.com/#organization"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://writevoid.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does writevoid work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You type in a minimalist editor. If you stop typing for a few seconds, your text starts to fade and is permanently deleted."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does writevoid work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. writevoid supports PWA install and can run fully offline after assets are cached by your browser."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does writevoid track user activity?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. writevoid does not include ads or third-party analytics."
+              }
+            }
+          ]
+        }
+      ]
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "writevoid key features",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Text fades after inactivity"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Distraction-free writing interface"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Offline-ready PWA support"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Open source with no analytics"
+        }
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://writevoid.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About",
+          "item": "https://writevoid.com/about.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Privacy",
+          "item": "https://writevoid.com/privacy.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Terms",
+          "item": "https://writevoid.com/tos.html"
+        }
+      ]
+      }
+    </script>
 </head>
 
 <body>
@@ -149,8 +263,9 @@ SOFTWARE.
           <p>This is an open source project <a href="https://github.com/timoheimonen/writevoid.com" target="_blank"
               rel="noopener noreferrer">GitHub</a>.
           </p>
-          <p><a href="https://writevoid.com/privacy.html">Privacy</a> · <a href="https://writevoid.com/tos.html">Terms
-              of service</a></p>
+          <p><a href="https://writevoid.com/about.html">About</a> · <a
+              href="https://writevoid.com/privacy.html">Privacy</a> · <a href="https://writevoid.com/tos.html">Terms of
+              service</a></p>
         </section>
 
         <section>
@@ -181,6 +296,9 @@ SOFTWARE.
 
   <footer id="site-meta" aria-label="Site information">
     <span>Copyright (c) 2026 Timo Heimonen &lt;timo.heimonen@proton.me&gt;</span>
+    <a href="https://writevoid.com/about.html">About</a>
+    <a href="https://writevoid.com/privacy.html">Privacy</a>
+    <a href="https://writevoid.com/tos.html">Terms</a>
   </footer>
 
   <script src="app.js"></script>
