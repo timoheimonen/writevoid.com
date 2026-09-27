@@ -1,0 +1,4 @@
+# Files in public/ that must not be served as static assets
+wrangler.jsonc
+.DS_Store
+.assetsignore

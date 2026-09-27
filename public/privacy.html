@@ -59,193 +59,127 @@ SOFTWARE.
       }
     }
   </script>
-  <style>
-    :root {
-      --bg: #000000;
-      --fg: rgba(255, 255, 255, 0.92);
-      --muted: rgba(255, 255, 255, 0.7);
-      --link: rgba(255, 255, 255, 0.92);
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--sans);
-      line-height: 1.55;
-    }
-
-    main {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 28px 18px 48px;
-    }
-
-    header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: 24px;
-      letter-spacing: -0.2px;
-      margin: 0;
-    }
-
-    .meta {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    section {
-      padding: 24px 0;
-      margin: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    section:last-child {
-      border-bottom: none;
-    }
-
-    h2 {
-      font-size: 18px;
-      margin: 0 0 16px;
-      font-weight: 600;
-      color: var(--fg);
-    }
-
-    p {
-      margin: 12px 0;
-      line-height: 1.6;
-    }
-
-    ul {
-      margin: 12px 0 12px 20px;
-      line-height: 1.6;
-    }
-
-    li {
-      margin: 6px 0;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      text-decoration-color: rgba(128, 128, 128, 0.55);
-    }
-
-    code {
-      font-family: var(--mono);
-      font-size: 0.95em;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: rgba(255, 255, 255, 0.95);
-    }
-
-    .home {
-      font-size: 13px;
-    }
-  </style>
+  <script>
+    // Follow the theme chosen in the app, falling back to the system setting
+    try {
+      const t = localStorage.getItem('writevoid_theme');
+      if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="/pages.css?v=1.0.9">
 </head>
 
 <body>
+  <div class="topbar">
+    <a class="wordmark" href="https://writevoid.com/">writevoid</a>
+    <a class="topbar-link" href="https://writevoid.com/">Open the app →</a>
+  </div>
+
   <main>
-    <header>
+    <header class="doc-hero">
+      <p class="eyebrow">Legal</p>
       <h1>Privacy Policy</h1>
-      <div class="meta">Effective date: 2026-03-28</div>
-    </header>
-
-    <div class="home">
-      <a href="https://writevoid.com/">← Back to writevoid.com</a>
-    </div>
-
-    <section>
-      <p>writevoid.com is a minimalist browser-based writing tool where typed text fades and is permanently deleted
+      <p class="doc-meta">Effective date: 2026-09-27</p>
+      <p class="lead">writevoid.com is a minimalist browser-based writing tool where typed text fades and is permanently deleted
         after
         inactivity. <strong>We do not run ads, we do not use analytics, and we do not sell
           personal data.</strong></p>
-    </section>
+    </header>
 
-    <section>
-      <h2>Summary</h2>
-      <ul>
-        <li><strong>No trackers / analytics</strong>: We do not use third-party analytics scripts, tracking pixels, or
-          advertising beacons.</li>
-        <li><strong>No accounts</strong>: There is no login and no user profile.</li>
-        <li><strong>Optional local storage</strong>: Your preferences (mode, theme, word limit) are stored locally in
-          your browser and never sent to a server.</li>
-        <li><strong>Offline/PWA support</strong>: A service worker may cache a small set of static assets for offline
-          use.</li>
-      </ul>
-    </section>
+    <div class="prose">
 
-    <section>
-      <h2>What information we collect</h2>
-      <p><strong>We do not intentionally collect personal information</strong> (such as your name, email address, or
-        precise location) through the writevoid.com app itself.</p>
-    </section>
+      <section>
+        <h2>Summary</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>No trackers / analytics</h3>
+            <p>We do not use third-party analytics scripts, tracking pixels, or advertising beacons.</p>
+          </div>
+          <div class="card">
+            <h3>No accounts</h3>
+            <p>There is no login and no user profile.</p>
+          </div>
+          <div class="card">
+            <h3>Optional local storage</h3>
+            <p>Your preferences (mode, theme, font, word limit) are stored locally in your browser and never sent to a server.</p>
+          </div>
+          <div class="card">
+            <h3>Offline/PWA support</h3>
+            <p>A service worker may cache a small set of static assets for offline use.</p>
+          </div>
+        </div>
+      </section>
 
-    <section>
-      <h2>Local device storage</h2>
-      <p>The app stores your preferences <strong>locally in your browser</strong> using Local Storage. The following
-        keys are used:</p>
-      <ul>
-        <li><code>writevoid.com-mode</code> — writing mode (<code>"hardcore"</code> or <code>"focus"</code>)</li>
-        <li><code>writevoid.com-theme</code> — color theme (<code>"dark"</code> or <code>"light"</code>)</li>
-        <li><code>writevoid.com-word-limit</code> — the configured word limit (number)</li>
-      </ul>
-      <p>This data never leaves your device. You can clear it at any time via your browser's site data settings.</p>
-    </section>
+      <section>
+        <h2>What information we collect</h2>
+        <p><strong>We do not intentionally collect personal information</strong> (such as your name, email address, or
+          precise location) through the writevoid.com app itself.</p>
+      </section>
 
-    <section>
-      <h2>Service worker / offline cache (PWA)</h2>
-      <p>If your browser supports it, the site registers a service worker for offline/PWA behavior. The service worker
-        uses the browser’s Cache Storage to cache a small set of static assets (such as <code>/</code>,
-        <code>manifest.json</code>, and icons) and may cache fetched assets to improve offline use and load speed.
-      </p>
-      <p>This cache contains <strong>site files</strong>, not your personal content.</p>
-    </section>
+      <section>
+        <h2>Local device storage</h2>
+        <p>The app stores your preferences <strong>locally in your browser</strong> using Local Storage. The following
+          keys are used:</p>
+        <ul>
+          <li><code>writevoid_mode</code> — writing mode (<code>"hardcore"</code> or <code>"focus"</code>)</li>
+          <li><code>writevoid_theme</code> — color theme (<code>"dark"</code> or <code>"light"</code>)</li>
+          <li><code>writevoid_font</code> — editor font (<code>"serif"</code>, <code>"sans"</code> or <code>"mono"</code>)</li>
+          <li><code>writevoid_limit</code> — the configured word goal (number)</li>
+        </ul>
+        <p>This data never leaves your device. You can clear it at any time via your browser's site data settings.</p>
+      </section>
 
-    <section>
-      <h2>Hosting/provider logs</h2>
-      <p>writevoid.com is hosted on <strong>Cloudflare Pages</strong>. Cloudflare may
-        process <strong>standard server/edge request data</strong> (such as IP address, user-agent, request path,
-        timestamps, and similar operational metadata) in order to deliver the site, protect it from abuse, and operate
-        the service.</p>
-      <p>We do not add trackers on top of that, and we do not use these logs for advertising or selling data.</p>
-    </section>
+      <section>
+        <h2>Service worker / offline cache (PWA)</h2>
+        <p>If your browser supports it, the site registers a service worker for offline/PWA behavior. The service worker
+          uses the browser’s Cache Storage to cache a small set of static assets (such as <code>/</code>,
+          <code>manifest.json</code>, and icons) and may cache fetched assets to improve offline use and load speed.
+        </p>
+        <p>This cache contains <strong>site files</strong>, not your personal content.</p>
+      </section>
 
-    <section>
-      <h2>Open source verification</h2>
-      <p>The project is open source, and you can verify the behavior described above in:</p>
-      <ul>
-        <li><code>public/index.html</code> — UI and local storage usage</li>
-        <li><code>public/app.js</code> — editor logic and fade/delete behavior</li>
-        <li><code>public/style.css</code> — styling</li>
-        <li><code>public/sw.js</code> — service worker and caching</li>
-      </ul>
-      <p>Repository: <a href="https://github.com/timoheimonen/writevoid.com" target="_blank"
-          rel="noopener">github.com/timoheimonen/writevoid.com</a></p>
-    </section>
+      <section>
+        <h2>Hosting/provider logs</h2>
+        <p>writevoid.com is hosted on <strong>Cloudflare</strong>. Cloudflare may
+          process <strong>standard server/edge request data</strong> (such as IP address, user-agent, request path,
+          timestamps, and similar operational metadata) in order to deliver the site, protect it from abuse, and operate
+          the service.</p>
+        <p>We do not add trackers on top of that, and we do not use these logs for advertising or selling data.</p>
+      </section>
 
-    <section>
-      <h2>Contact</h2>
-      <p>If you have privacy questions, contact:</p>
-      <ul>
-        <li>Timo Heimonen — <a href="mailto:timo.heimonen@proton.me">timo.heimonen@proton.me</a></li>
-      </ul>
-    </section>
+      <section>
+        <h2>Open source verification</h2>
+        <p>The project is open source, and you can verify the behavior described above in:</p>
+        <ul>
+          <li><code>public/index.html</code> — UI</li>
+          <li><code>public/app.js</code> — editor logic, fade/delete behavior and local storage usage</li>
+          <li><code>public/style.css</code> — styling</li>
+          <li><code>public/sw.js</code> — service worker and caching</li>
+        </ul>
+        <p>Repository: <a href="https://github.com/timoheimonen/writevoid.com" target="_blank"
+            rel="noopener">github.com/timoheimonen/writevoid.com</a></p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>If you have privacy questions, contact:</p>
+        <ul>
+          <li>Timo Heimonen — <a href="mailto:timo.heimonen@proton.me">timo.heimonen@proton.me</a></li>
+        </ul>
+      </section>
+    </div>
   </main>
+
+  <footer>
+    <span>© 2026 Timo Heimonen · Effective date: 2026-09-27</span>
+    <nav aria-label="Site">
+      <a href="https://writevoid.com/">App</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/tos">Terms</a>
+      <a href="https://github.com/timoheimonen/writevoid.com" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </footer>
 </body>
 
 </html>
