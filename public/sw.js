@@ -1,11 +1,10 @@
-const VERSION = '1.0.8';
+const VERSION = '1.0.9';
 const CACHE_NAME = `writevoid-v${VERSION}`;
 const ASSETS = [
   './',
-  './index.html',
-  './about.html',
-  './privacy.html',
-  './tos.html',
+  './about',
+  './privacy',
+  './tos',
   './style.css',
   './app.js',
   './manifest.json',
@@ -14,9 +13,30 @@ const ASSETS = [
   './icons/og-image.png'
 ];
 
+// Safari refuses to render a navigation response served by a service worker
+// if that response was redirected (e.g. /privacy.html -> /privacy), so strip
+// the redirect flag by rebuilding the response.
+function cleanResponse(response) {
+  if (!response || !response.redirected) return Promise.resolve(response);
+  return response.blob().then((body) => new Response(body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers
+  }));
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.all(ASSETS.map((url) =>
+        fetch(url, { cache: 'reload' })
+          .then(cleanResponse)
+          .then((response) => {
+            if (!response.ok) throw new Error(`Failed to cache ${url}`);
+            return cache.put(url, response);
+          })
+      ))
+    )
   );
   self.skipWaiting();
 });
@@ -38,8 +58,8 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
+      if (cached) return cleanResponse(cached);
+      return fetch(event.request).then(cleanResponse).then((response) => {
         // Cache valid responses for app assets
         if (response && response.status === 200) {
           const clone = response.clone();
