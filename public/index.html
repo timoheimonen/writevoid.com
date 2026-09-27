@@ -32,7 +32,7 @@ SOFTWARE.
 
   <meta name="description"
     content="Stop typing, and your words fade away. writevoid.com is a minimalist, distraction-free writing space where focus is the only way to keep your thoughts. Open source, no tracking, works fully offline." />
-  <meta name="version" content="1.0.8" />
+  <meta name="version" content="1.0.9" />
   <meta name="author" content="writevoid contributors" />
   <meta name="keywords"
     content="writing, distraction-free, ephemeral writing, focus, minimalist, open source, offline, pwa" />
@@ -58,16 +58,16 @@ SOFTWARE.
   <meta name="twitter:image:alt" content="writevoid editor interface with minimalist writing canvas" />
 
 
-  <link rel="manifest" href="manifest.json?v=1.0.8" />
+  <link rel="manifest" href="manifest.json?v=1.0.9" />
   <meta name="theme-color" content="#000000" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="writevoid" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png?v=1.0.8" />
-  <link rel="icon" href="favicon.ico?v=1.0.8" sizes="any" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png?v=1.0.9" />
+  <link rel="icon" href="favicon.ico?v=1.0.9" sizes="any" />
 
-  <link rel="stylesheet" href="style.css?v=1.0.8" />
+  <link rel="stylesheet" href="style.css?v=1.0.9" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -189,19 +189,19 @@ SOFTWARE.
           "@type": "ListItem",
           "position": 2,
           "name": "About",
-          "item": "https://writevoid.com/about.html"
+          "item": "https://writevoid.com/about"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Privacy",
-          "item": "https://writevoid.com/privacy.html"
+          "item": "https://writevoid.com/privacy"
         },
         {
           "@type": "ListItem",
           "position": 4,
           "name": "Terms",
-          "item": "https://writevoid.com/tos.html"
+          "item": "https://writevoid.com/tos"
         }
       ]
       }
@@ -212,80 +212,130 @@ SOFTWARE.
 
   <div id="top-hover-zone"></div>
 
+  <button id="menu-handle" type="button" aria-label="Show settings" aria-controls="menu-bar" aria-expanded="false">
+    <span></span>
+  </button>
+
   <header id="menu-bar">
-    <div class="menu-left">
-      <h1 id="logo">writevoid.com - stop writing, and the void takes it.</h1>
-    </div>
-    <div class="menu-right">
-      <div class="menu-item">
-        <label for="limit-input">word limit for download</label>
+    <h1 id="logo">
+      <span class="logo-mark">writevoid</span>
+      <span class="logo-tagline">stop writing, and the void takes it.</span>
+    </h1>
+    <nav class="menu-right" aria-label="Settings">
+      <label class="ctl ctl-field" for="limit-input" title="Word goal before download unlocks">
+        <span class="ctl-label">goal</span>
         <input id="limit-input" type="number" min="1" inputmode="numeric" placeholder="100" />
+        <span class="ctl-suffix">words</span>
+      </label>
+
+      <div class="segmented" id="font-group" role="radiogroup" aria-label="Font">
+        <button type="button" role="radio" data-font="serif" class="font-serif" title="Serif" aria-label="Serif">Aa</button>
+        <button type="button" role="radio" data-font="sans" class="font-sans" title="Sans-serif" aria-label="Sans-serif">Aa</button>
+        <button type="button" role="radio" data-font="mono" class="font-mono" title="Monospace" aria-label="Monospace">Aa</button>
       </div>
-      <div class="menu-item">
-        <label for="font-select">font</label>
-        <select id="font-select">
-          <option value="serif">serif</option>
-          <option value="sans">sans-serif</option>
-          <option value="mono">monospace</option>
-        </select>
+
+      <div class="segmented" id="mode-group" role="radiogroup" aria-label="Mode">
+        <button type="button" role="radio" data-mode="focus" title="Text fades out over 10 seconds">focus</button>
+        <button type="button" role="radio" data-mode="hardcore" title="Text fades out over 5 seconds">hardcore</button>
       </div>
-      <div class="menu-item">
-        <label>current mode</label>
-        <button id="mode-btn" title="focus: 10s fade time | hardcore: 5s fade time">focus</button>
-      </div>
-      <div class="menu-item">
-        <button id="theme-btn">dark</button>
-      </div>
-      <div class="menu-item">
-        <button id="info-btn" title="Information">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" />
-            <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            <circle cx="8" cy="5" r="1" fill="currentColor" />
-          </svg>
-        </button>
-      </div>
-    </div>
+
+      <span class="menu-divider" aria-hidden="true"></span>
+
+      <button id="theme-btn" class="icon-btn" type="button" aria-label="Switch to dark theme">
+        <svg class="icon-moon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5" />
+          <path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </button>
+      <button id="info-btn" class="text-btn" type="button" aria-haspopup="dialog">about</button>
+    </nav>
   </header>
 
   <div id="editor" contenteditable="plaintext-only" spellcheck="true" data-placeholder="start writing..."></div>
 
   <div id="info-overlay" class="overlay-backdrop">
-    <div id="infoWindow" class="info-window">
-      <button id="info-close-btn" class="info-close-btn" title="Close">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-        </svg>
-      </button>
+    <div id="infoWindow" class="info-window" role="dialog" aria-modal="true" aria-labelledby="info-title">
+      <header class="info-header">
+        <div>
+          <h2 id="info-title" class="info-title">writevoid</h2>
+          <p class="info-tagline">Stop writing, and the void <span class="fade-demo">takes it.</span></p>
+        </div>
+        <button id="info-close-btn" class="info-close-btn" type="button" title="Close" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </button>
+      </header>
+
       <div class="info-content">
         <section>
-          <h2>About</h2>
-          <p>This is an open source project <a href="https://github.com/timoheimonen/writevoid.com" target="_blank"
-              rel="noopener noreferrer">GitHub</a>.
-          </p>
-          <p><a href="https://writevoid.com/about.html">About</a> · <a
-              href="https://writevoid.com/privacy.html">Privacy</a> · <a href="https://writevoid.com/tos.html">Terms of
-              service</a></p>
+          <h3>How it works</h3>
+          <ol class="info-steps">
+            <li>
+              <span class="step-num">1</span>
+              <div><strong>Write</strong><span>Typing starts the timer. Keep going.</span></div>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <div><strong>Pause 5 seconds</strong><span>Your text begins to fade.</span></div>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <div><strong>It's gone</strong><span>Faded text is deleted for good. There is no undo.</span></div>
+            </li>
+          </ol>
         </section>
 
         <section>
-          <h2>PWA Support</h2>
-          <p>You can install writevoid.com to your dock/desktop and use 100% offline.</p>
+          <h3>Modes</h3>
+          <div class="info-modes">
+            <div class="mode-card" data-mode-card="focus">
+              <div class="mode-card-head"><strong>Focus</strong><span class="mode-badge">current</span></div>
+              <span class="mode-time">10s</span>
+              <span class="mode-desc">fade-out</span>
+            </div>
+            <div class="mode-card" data-mode-card="hardcore">
+              <div class="mode-card-head"><strong>Hardcore</strong><span class="mode-badge">current</span></div>
+              <span class="mode-time">5s</span>
+              <span class="mode-desc">fade-out</span>
+            </div>
+          </div>
         </section>
 
         <section>
-          <h2>How to use</h2>
-          <ul>
-            <li>Typing starts the fade timer. After 5 seconds of inactivity, text begins to fade.</li>
-            <li>Hardcore mode: text fades out over 5 seconds.</li>
-            <li>Focus mode: text fades out over 10 seconds.</li>
-            <li>Faded-out text is permanently deleted - there is no recovery.</li>
-            <li>Once you exceed the word limit, a download button appears.</li>
-            <li>Download is in plain .txt format.</li>
-            <li>Fade timer is paused while the download dialog is open and until resuming typing</li>
+          <h3>Good to know</h3>
+          <ul class="info-facts">
+            <li>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3 3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <span>Pass your word goal to unlock a plain <code>.txt</code> download. The timer pauses while you save.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5" /><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" stroke="currentColor" stroke-width="1.5" /></svg>
+              <span>Private by design. Your writing never leaves your device. No accounts, no ads.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5" /><path d="M6 14h4M8 11v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+              <span>Install it to your dock or home screen and it works fully offline.</span>
+            </li>
           </ul>
         </section>
       </div>
+
+      <footer class="info-footer">
+        <nav class="info-links" aria-label="More information">
+          <a href="https://writevoid.com/about">About</a>
+          <a href="https://writevoid.com/privacy">Privacy</a>
+          <a href="https://writevoid.com/tos">Terms</a>
+          <a href="https://github.com/timoheimonen/writevoid.com" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            GitHub
+          </a>
+        </nav>
+        <span class="info-version">open source · v1.0.9</span>
+      </footer>
     </div>
   </div>
 
@@ -296,12 +346,12 @@ SOFTWARE.
 
   <footer id="site-meta" aria-label="Site information">
     <span>Copyright (c) 2026 Timo Heimonen &lt;timo.heimonen@proton.me&gt;</span>
-    <a href="https://writevoid.com/about.html">About</a>
-    <a href="https://writevoid.com/privacy.html">Privacy</a>
-    <a href="https://writevoid.com/tos.html">Terms</a>
+    <a href="https://writevoid.com/about">About</a>
+    <a href="https://writevoid.com/privacy">Privacy</a>
+    <a href="https://writevoid.com/tos">Terms</a>
   </footer>
 
-  <script src="app.js?v=1.0.8"></script>
+  <script src="app.js?v=1.0.9"></script>
 </body>
 
 </html>

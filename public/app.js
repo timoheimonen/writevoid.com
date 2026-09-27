@@ -42,10 +42,11 @@ const editor = document.getElementById('editor');
 const wordcountEl = document.getElementById('wordcount');
 const downloadBtn = document.getElementById('download-btn-bottom');
 const themeBtn = document.getElementById('theme-btn');
-const modeBtn = document.getElementById('mode-btn');
+const modeButtons = document.querySelectorAll('#mode-group [data-mode]');
 const limitInput = document.getElementById('limit-input');
-const fontSelect = document.getElementById('font-select');
+const fontButtons = document.querySelectorAll('#font-group [data-font]');
 const menuBar = document.getElementById('menu-bar');
+const menuHandle = document.getElementById('menu-handle');
 const topHoverZone = document.getElementById('top-hover-zone');
 const siteMeta = document.getElementById('site-meta');
 const infoBtn = document.getElementById('info-btn');
@@ -84,20 +85,28 @@ let menuHideTimer = null;
 let isInfoWindowOpen = false;
 
 // ── Menu hover behavior ───────────────────────────────────
+function setMenuVisible(visible) {
+  menuBar.classList.toggle('visible', visible);
+  document.body.classList.toggle('menu-open', visible);
+  menuHandle.setAttribute('aria-expanded', String(visible));
+}
+
 function showMenu() {
   clearTimeout(menuHideTimer);
-  menuBar.classList.add('visible');
+  setMenuVisible(true);
 }
 
 function hideMenuDelayed() {
+  clearTimeout(menuHideTimer);
   menuHideTimer = setTimeout(() => {
-    menuBar.classList.remove('visible');
+    if (menuBar.querySelector(':focus-visible')) return;
+    setMenuVisible(false);
   }, 500);
 }
 
 function hideMenu() {
   clearTimeout(menuHideTimer);
-  menuBar.classList.remove('visible');
+  setMenuVisible(false);
 }
 
 function keepMenuOpen() {
@@ -124,8 +133,44 @@ function syncSiteMeta() {
 }
 
 topHoverZone.addEventListener('mouseenter', showMenu);
+menuHandle.addEventListener('pointerenter', (e) => {
+  if (e.pointerType === 'mouse') showMenu();
+});
 menuBar.addEventListener('mouseenter', keepMenuOpen);
 menuBar.addEventListener('mouseleave', hideMenuDelayed);
+
+// Touch devices have no hover: the handle toggles the menu explicitly
+menuHandle.addEventListener('click', (e) => {
+  if (menuBar.classList.contains('visible')) {
+    hideMenu();
+    return;
+  }
+  showMenu();
+  // Keyboard activation (detail === 0) moves focus into the menu; a tap must
+  // not, or the goal field would pop up the on-screen keyboard
+  if (e.detail === 0) {
+    menuBar.querySelector('button, input')?.focus({ preventScroll: true });
+  }
+});
+
+// Tapping outside the menu (e.g. back into the editor) closes it
+document.addEventListener('pointerdown', (e) => {
+  if (!menuBar.classList.contains('visible')) return;
+  if (menuBar.contains(e.target) || menuHandle.contains(e.target)) return;
+  if (e.pointerType === 'mouse' && topHoverZone.contains(e.target)) return;
+  hideMenu();
+});
+
+menuBar.addEventListener('focusout', (e) => {
+  if (!menuBar.contains(e.relatedTarget)) hideMenuDelayed();
+});
+
+menuBar.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    hideMenu();
+    editor.focus();
+  }
+});
 document.addEventListener('mousemove', () => {
   if ((editor.innerText || '').trim() === '') {
     showSiteMeta();
@@ -136,7 +181,9 @@ document.addEventListener('mousemove', () => {
 function applyTheme(t, { persist = true } = {}) {
   theme = t;
   document.documentElement.setAttribute('data-theme', t === THEME_DARK ? THEME_DARK : '');
-  themeBtn.textContent = t;
+  const next = t === THEME_DARK ? THEME_LIGHT : THEME_DARK;
+  themeBtn.setAttribute('aria-label', `Switch to ${next} theme`);
+  themeBtn.title = `Switch to ${next} theme`;
   if (persist) {
     localStorage.setItem(STORAGE_THEME, t);
   }
@@ -159,6 +206,29 @@ if (systemThemeMedia) {
   }
 }
 
+// ── Segmented controls ─────────────────────────────────────
+function setChecked(buttons, key, value) {
+  buttons.forEach((btn) => {
+    const checked = btn.dataset[key] === value;
+    btn.setAttribute('aria-checked', String(checked));
+    btn.tabIndex = checked ? 0 : -1;
+  });
+}
+
+// Arrow keys move between options, as expected of a radiogroup
+document.querySelectorAll('.segmented').forEach((group) => {
+  group.addEventListener('keydown', (e) => {
+    const dir = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    if (!dir) return;
+    e.preventDefault();
+    const buttons = [...group.querySelectorAll('button')];
+    const i = buttons.indexOf(document.activeElement);
+    const next = buttons[(i + dir + buttons.length) % buttons.length];
+    next.focus();
+    next.click();
+  });
+});
+
 const FONT_STACKS = {
   serif: "Georgia, 'Times New Roman', serif",
   sans: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif",
@@ -168,13 +238,12 @@ const FONT_STACKS = {
 function applyFont(key) {
   if (!FONT_STACKS[key]) return;
   editor.style.fontFamily = FONT_STACKS[key];
-  fontSelect.value = key;
+  setChecked(fontButtons, 'font', key);
   localStorage.setItem(STORAGE_FONT, key);
 }
 
-fontSelect.addEventListener('change', () => {
-  applyFont(fontSelect.value);
-  editor.focus();
+fontButtons.forEach((btn) => {
+  btn.addEventListener('click', () => applyFont(btn.dataset.font));
 });
 
 // ── Mode toggle ────────────────────────────────────────────
@@ -182,12 +251,15 @@ function applyMode(m) {
   mode = m;
   const fadeDuration = m === 'hardcore' ? FADE_DURATION_HARDCORE : FADE_DURATION_FOCUS;
   document.documentElement.style.setProperty('--fade-duration', `${fadeDuration}s`);
-  modeBtn.textContent = m;
+  setChecked(modeButtons, 'mode', m);
+  document.querySelectorAll('[data-mode-card]').forEach((card) => {
+    card.classList.toggle('current', card.dataset.modeCard === m);
+  });
   localStorage.setItem(STORAGE_MODE, m);
 }
 
-modeBtn.addEventListener('click', () => {
-  applyMode(mode === 'hardcore' ? 'focus' : 'hardcore');
+modeButtons.forEach((btn) => {
+  btn.addEventListener('click', () => applyMode(btn.dataset.mode));
 });
 
 // ── Word limit input ─────────────────────────────────────
@@ -345,18 +417,40 @@ editor.addEventListener('paste', (e) => {
 let mouseDownTarget = null;
 let isMouseDownInsideWindow = false;
 
+let infoReturnFocus = null;
+
 function openInfoWindow() {
   isInfoWindowOpen = true;
+  infoReturnFocus = document.activeElement;
   infoOverlay.classList.add('open');
+  hideMenu();
   cancelFade();
   clearTimeout(inactivityTimer);
+  infoCloseBtn.focus({ preventScroll: true });
 }
 
 function closeInfoWindow() {
   isInfoWindowOpen = false;
   infoOverlay.classList.remove('open');
+  // Return to the editor rather than the (now hidden) menu button
+  (infoReturnFocus && !menuBar.contains(infoReturnFocus) ? infoReturnFocus : editor).focus({ preventScroll: true });
   resetActivityTimer();
 }
+
+// Keep Tab focus inside the dialog while it is open
+infoWindow.addEventListener('keydown', (e) => {
+  if (e.key !== 'Tab') return;
+  const focusables = infoWindow.querySelectorAll('button, a[href]');
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
 
 infoBtn.addEventListener('click', openInfoWindow);
 infoCloseBtn.addEventListener('click', closeInfoWindow);
