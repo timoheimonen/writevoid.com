@@ -281,7 +281,7 @@ body.menu-open #menu-handle {
 .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif !important; }
 .font-mono { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace !important; font-size: 0.78rem !important; }
 
-/* Text button (about) */
+/* Text button (help) */
 .text-btn {
   padding: 0 12px;
   border: none;

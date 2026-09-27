@@ -54,6 +54,7 @@ SOFTWARE.
           "name": "About writevoid",
           "url": "https://writevoid.com/about",
           "description": "About writevoid: a minimalist distraction-free writing app where text fades if you stop typing.",
+          "dateModified": "2026-09-27",
           "isPartOf": {
             "@type": "WebSite",
             "name": "writevoid",
@@ -73,18 +74,42 @@ SOFTWARE.
             },
             {
               "@type": "Question",
-              "name": "Is writevoid a distraction-free writing app?",
+              "name": "What is the difference between focus and hardcore mode?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes. writevoid removes typical editor clutter and keeps the focus on continuous writing."
+                "text": "Both modes start fading your text after 5 seconds without typing. In focus mode the text fades out over 10 seconds, in hardcore mode over 5 seconds. Start typing again before it is gone and the text comes back."
               }
             },
             {
               "@type": "Question",
-              "name": "Can I use writevoid offline?",
+              "name": "Can I recover text that has faded away?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes. writevoid is installable as a progressive web app and works offline after your browser caches the app files."
+                "text": "No. Once text has fully faded it is deleted permanently. To keep a draft, reach your word goal and download it as a .txt file."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is writevoid free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. It is free to use, with no ads."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need to create an account?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. There is no login or profile system."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use writevoid offline or on mobile?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. It works in modern desktop and mobile browsers, and you can install it as a progressive web app that works offline after the first visit."
               }
             }
           ]
@@ -92,160 +117,141 @@ SOFTWARE.
       ]
     }
   </script>
-  <style>
-    :root {
-      --bg: #000000;
-      --fg: rgba(255, 255, 255, 0.92);
-      --muted: rgba(255, 255, 255, 0.7);
-      --link: rgba(255, 255, 255, 0.92);
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--sans);
-      line-height: 1.6;
-    }
-
-    main {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 28px 18px 48px;
-    }
-
-    header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: 24px;
-      letter-spacing: -0.2px;
-      margin: 0;
-    }
-
-    .meta {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    section {
-      padding: 24px 0;
-      margin: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    section:last-child {
-      border-bottom: none;
-    }
-
-    h2 {
-      font-size: 18px;
-      margin: 0 0 14px;
-      font-weight: 600;
-      color: var(--fg);
-    }
-
-    p {
-      margin: 12px 0;
-    }
-
-    ul {
-      margin: 12px 0 12px 20px;
-    }
-
-    li {
-      margin: 6px 0;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      text-decoration-color: rgba(128, 128, 128, 0.55);
-    }
-
-    code {
-      font-family: var(--mono);
-      font-size: 0.95em;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: rgba(255, 255, 255, 0.95);
-    }
-
-    .home {
-      font-size: 13px;
-    }
-  </style>
+  <script>
+    // Follow the theme chosen in the app, falling back to the system setting
+    try {
+      const t = localStorage.getItem('writevoid_theme');
+      if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="/pages.css?v=1.0.9">
 </head>
 
 <body>
+  <div class="topbar">
+    <a class="wordmark" href="https://writevoid.com/">writevoid</a>
+    <a class="topbar-link" href="https://writevoid.com/">Open the app →</a>
+  </div>
+
   <main>
-    <header>
-      <h1>About writevoid</h1>
-      <div class="meta">Updated: 2026-04-08</div>
+    <header class="hero">
+      <h1 class="eyebrow">About writevoid</h1>
+      <p class="display">Stop writing, and the void <span class="fade-demo">takes it.</span></p>
+      <p class="lead"><strong>writevoid</strong> is a minimalist, distraction-free writing app where your words are
+        temporary by design. Keep typing and your draft grows. Stop, and it fades away for good.</p>
+      <p class="lead">The goal is simple: keep your flow by removing the urge to polish while you draft.</p>
+      <a class="cta" href="https://writevoid.com/">Start writing <span aria-hidden="true">→</span></a>
     </header>
 
-    <div class="home">
-      <a href="https://writevoid.com/">← Back to writevoid.com</a>
-    </div>
-
-    <section>
-      <p><strong>writevoid</strong> is a minimalist, distraction-free writing app where your words are temporary by
-        design. If you stop typing, text fades and is permanently removed.</p>
-      <p>The goal is simple: maintain flow by removing the pressure to polish while drafting.</p>
+    <section aria-labelledby="how">
+      <h2 id="how">How it works</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <div><strong>Write</strong><span>Type in a clean editor right in your browser. No account needed.</span></div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div><strong>Pause for 5 seconds</strong><span>Your text starts to fade. Start typing again to bring it back.</span></div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div><strong>It's gone</strong><span>Once fully faded, the text is deleted. There is no undo.</span></div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div><strong>Keep what you earned</strong><span>Pass your word goal to download the draft as a plain <code>.txt</code> file.</span></div>
+        </li>
+      </ol>
     </section>
 
-    <section>
-      <h2>How writevoid works</h2>
-      <ul>
-        <li>You type in a clean browser editor with no account required.</li>
-        <li>If you pause typing, your text starts to fade.</li>
-        <li>After fading completes, text is deleted with no recovery option.</li>
-        <li>When you pass a word target, you can download your draft as a plain <code>.txt</code> file.</li>
-      </ul>
+    <section aria-labelledby="modes">
+      <h2 id="modes">Two modes</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Focus</h3>
+          <span class="mode-time">10s</span>
+          <p>A gentler fade that gives you time to catch a stalled thought.</p>
+        </div>
+        <div class="card">
+          <h3>Hardcore</h3>
+          <span class="mode-time">5s</span>
+          <p>Half the time. For when you really need to push through.</p>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Why writers use it</h2>
-      <ul>
-        <li>Works as a focused writing sprint tool.</li>
-        <li>Helps reduce over-editing during first drafts.</li>
-        <li>Encourages momentum with built-in urgency.</li>
-      </ul>
+    <section aria-labelledby="why">
+      <h2 id="why">Why writers use it</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Writing sprints</h3>
+          <p>A focused timer-like session without setting a timer.</p>
+        </div>
+        <div class="card">
+          <h3>Rough first drafts</h3>
+          <p>No time to over-edit. Just get the words down.</p>
+        </div>
+        <div class="card">
+          <h3>Built-in momentum</h3>
+          <p>A little urgency keeps your fingers moving.</p>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Privacy and offline support</h2>
-      <p>writevoid does not include ads or third-party analytics. The app supports offline use through PWA caching and
-        stores only local preferences in your browser.</p>
-      <p>Read the full <a href="/privacy">Privacy Policy</a> and <a href="/tos">Terms of Service</a>.</p>
+    <section aria-labelledby="privacy">
+      <h2 id="privacy">Private and offline</h2>
+      <p>writevoid has no ads and no third-party analytics. Your writing stays in your browser, and only your
+        preferences are saved locally. Install it as an app and it works fully offline.</p>
+      <p class="muted">Read the full <a href="/privacy">Privacy Policy</a> and <a href="/tos">Terms of Service</a>.</p>
     </section>
 
-    <section>
-      <h2>Open source</h2>
-      <p>The complete source is available on GitHub for review and contribution:</p>
-      <p><a href="https://github.com/timoheimonen/writevoid.com" target="_blank"
+    <section aria-labelledby="source">
+      <h2 id="source">Open source</h2>
+      <p>The complete source is available on GitHub for review and contribution:
+        <a href="https://github.com/timoheimonen/writevoid.com" target="_blank"
           rel="noopener">github.com/timoheimonen/writevoid.com</a></p>
     </section>
 
-    <section>
-      <h2>FAQ</h2>
-      <p><strong>Is writevoid free?</strong><br>Yes, it is free to use.</p>
-      <p><strong>Do I need to create an account?</strong><br>No. There is no login or profile system.</p>
-      <p><strong>Can I use writevoid on mobile?</strong><br>Yes. It works in modern mobile browsers and can be installed as a PWA.</p>
+    <section aria-labelledby="faq">
+      <h2 id="faq">FAQ</h2>
+        <details>
+          <summary>What is writevoid?</summary>
+          <p>writevoid is a browser-based minimalist writing app where text starts to fade and then disappears if you stop typing.</p>
+        </details>
+        <details>
+          <summary>What is the difference between focus and hardcore mode?</summary>
+          <p>Both modes start fading your text after 5 seconds without typing. In focus mode the text fades out over 10 seconds, in hardcore mode over 5 seconds. Start typing again before it is gone and the text comes back.</p>
+        </details>
+        <details>
+          <summary>Can I recover text that has faded away?</summary>
+          <p>No. Once text has fully faded it is deleted permanently. To keep a draft, reach your word goal and download it as a <code>.txt</code> file.</p>
+        </details>
+        <details>
+          <summary>Is writevoid free?</summary>
+          <p>Yes. It is free to use, with no ads.</p>
+        </details>
+        <details>
+          <summary>Do I need to create an account?</summary>
+          <p>No. There is no login or profile system.</p>
+        </details>
+        <details>
+          <summary>Can I use writevoid offline or on mobile?</summary>
+          <p>Yes. It works in modern desktop and mobile browsers, and you can install it as a progressive web app that works offline after the first visit.</p>
+        </details>
     </section>
   </main>
+
+  <footer>
+    <span>© 2026 Timo Heimonen · Updated 2026-09-27</span>
+    <nav aria-label="Site">
+      <a href="https://writevoid.com/">App</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/tos">Terms</a>
+      <a href="https://github.com/timoheimonen/writevoid.com" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </footer>
 </body>
 
 </html>
